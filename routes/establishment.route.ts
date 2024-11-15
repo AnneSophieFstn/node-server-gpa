@@ -7,9 +7,11 @@ import {
   deleteEstablishment,
 } from "../controllers/establishment.controller.ts";
 
+import authorize from "../authentification/authorization.ts";
+
 const establishmentRoutes = Router();
 
-establishmentRoutes.get("/", getAll);
+establishmentRoutes.get("/", authorize("read_car"), getAll);
 establishmentRoutes.get("/:id", getById);
 establishmentRoutes.post("/", create);
 establishmentRoutes.put("/:id", update);
