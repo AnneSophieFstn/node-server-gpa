@@ -2,9 +2,10 @@ import User from "./user.model.ts";
 import Establishment from "./establishment.model.ts";
 import Role from "./role.model.ts";
 import Permission from "./permission.model.ts";
+import Reservation from "./reservation.model.ts";
 import UserRole from "./userRole.model.ts";
 import RolePermission from "./rolePermission.model.ts";
-import Car from "./car.model.js";
+import Car from "./car.model.ts";
 
 const initModels = () => {
   User.belongsTo(Establishment, { foreignKey: "establishment_id" });
@@ -12,6 +13,16 @@ const initModels = () => {
 
   Car.belongsTo(Establishment, { foreignKey: "establishment_id" });
   Establishment.hasMany(Car, { foreignKey: "establishment_id" });
+
+  // Reservation -> Car (One to One)
+  // Car -> Reservation (has Many)
+  Reservation.belongsTo(Car, { foreignKey: "car_id" });
+  Car.hasMany(Reservation, { foreignKey: "car_id" });
+
+  // Reservation -> User (One to One)
+  // User -> Reservation (hasMany)
+  Reservation.belongsTo(User, { foreignKey: "user_id" });
+  User.hasMany(Reservation, { foreignKey: "user_id" });
 
   // User -> Roles (Many-to-Many)
   User.belongsToMany(Role, { through: UserRole, foreignKey: "user_id" });

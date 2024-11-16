@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectToDatabase } from "../database/database.ts";
 import userRoutes from "../routes/user.route.ts";
 import establishmentRoutes from "../routes/establishment.route.ts";
+import reservationRoute from "../routes/reservation.route.ts";
 import roleRoutes from "../routes/role.route.ts";
 import { initModels } from "../models/relation.ts";
 
@@ -16,6 +17,7 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/establishments", establishmentRoutes);
+app.use("/reservations", reservationRoute);
 app.use("/roles", roleRoutes);
 app.use("/auth", authRoutes);
 
