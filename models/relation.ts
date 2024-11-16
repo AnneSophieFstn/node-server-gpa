@@ -4,10 +4,14 @@ import Role from "./role.model.ts";
 import Permission from "./permission.model.ts";
 import UserRole from "./userRole.model.ts";
 import RolePermission from "./rolePermission.model.ts";
+import Car from "./car.model.js";
 
 const initModels = () => {
   User.belongsTo(Establishment, { foreignKey: "establishment_id" });
   Establishment.hasMany(User, { foreignKey: "establishment_id" });
+
+  Car.belongsTo(Establishment, { foreignKey: "establishment_id" });
+  Establishment.hasMany(Car, { foreignKey: "establishment_id" });
 
   // User -> Roles (Many-to-Many)
   User.belongsToMany(Role, { through: UserRole, foreignKey: "user_id" });
