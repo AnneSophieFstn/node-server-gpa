@@ -54,6 +54,18 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   try {
+    const id = req.params.id;
+    const update = await User.update(
+      {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        phone: req.body.phone,
+      },
+      {
+        where: { id: id },
+      }
+    );
+    res.status(200).send("Mise a jout fait");
   } catch (error) {
     res
       .status(500)
@@ -63,6 +75,11 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   try {
+    const id = req.params.id;
+    const deleteUser = await User.destroy({
+      where: { id: id },
+    });
+    res.status(200).send("Ok");
   } catch (error) {
     res
       .status(500)
